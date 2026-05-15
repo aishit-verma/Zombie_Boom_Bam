@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb2346d7bd06ee41a6c2cd071bc449a, type: 3}
+  m_Name: Normal
+  m_EditorClassIdentifier: Assembly-CSharp::ZombieTypeSO
+  zombieName: Normal
+  zombiePrefab: {fileID: 7847024107767870634, guid: 2f4c43da948b9a9489cfd4f93187ca8d, type: 3}
+  health: 100
+  moveSpeed: 2
+  contactDamage: 10
+  possibleDrops:
+  - {fileID: 11400000, guid: 5518de7ee5a13c246b2e532eab330066, type: 2}
+  dropChance: 0.7
+  creditDropAmount: 10
+  healthDropAmount: 0

@@ -23,8 +23,8 @@ public class ZombieController : MonoBehaviour
     {
         zombieType = type;
         currentHealth = type.health;
-
     }
+
     void FixedUpdate()
     {
         ChasePlayer();
@@ -72,13 +72,22 @@ public class ZombieController : MonoBehaviour
         if (zombieType.possibleDrops.Length == 0) return;
         if (Random.value > zombieType.dropChance) return;
 
-        DropSO drop = zombieType.possibleDrops[
-            Random.Range(0, zombieType.possibleDrops.Length)];
+        // weight based drop selection
+        float roll = Random.value;
+        float cumulative = 0f;
 
-        DropSpawner.Instance.SpawnDrop(
-            drop,
-            transform.position,
-            zombieType.creditDropAmount,
-            zombieType.healthDropAmount);
+        foreach (var entry in zombieType.possibleDrops)
+        {
+            cumulative += entry.weight;
+            if (roll <= cumulative)
+            {
+                DropSpawner.Instance.SpawnDrop(
+                    entry.drop,
+                    transform.position,
+                    zombieType.creditDropAmount,
+                    zombieType.healthDropAmount);
+                return;
+            }
+        }
     }
 }

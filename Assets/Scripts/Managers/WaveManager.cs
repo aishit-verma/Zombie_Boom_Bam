@@ -6,7 +6,10 @@ public class WaveManager : MonoBehaviour
     public static WaveManager Instance { get; private set; }
 
     [SerializeField] private WaveConfigSO[] waves;
-    [SerializeField] private float timeBetweenWaves = 5f;
+    [SerializeField] private float timeBetweenWaves = 8f;
+    [SerializeField] private float collectTime = 5f;
+
+
 
     private int currentWaveIndex = 0;
     private int zombiesAlive = 0;
@@ -14,6 +17,8 @@ public class WaveManager : MonoBehaviour
     // Other systems listen to these
     public System.Action OnWaveStart;
     public System.Action OnWaveEnd;
+    public System.Action OnShopOpen;
+
 
     void Awake()
     {
@@ -27,6 +32,10 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
+        // keep main scene active so all instantiated objects go here
+        UnityEngine.SceneManagement.SceneManager.SetActiveScene(
+            gameObject.scene);
+
         StartCoroutine(StartNextWave());
     }
 
@@ -62,12 +71,18 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator EndWave()
     {
-        Debug.Log($"Wave {currentWaveIndex + 1} complete!");
-        OnWaveEnd?.Invoke();
+        OnWaveEnd?.Invoke();  // credits awarded, wave complete UI shows
+
+        // give player time to collect drops first
+        yield return new WaitForSeconds(collectTime);
+
+        // NOW open shop
+        OnShopOpen?.Invoke();  // add this new event
+
+        // wait remaining time then start next wave
+        yield return new WaitForSeconds(timeBetweenWaves - collectTime);
 
         currentWaveIndex++;
-
-        yield return new WaitForSeconds(timeBetweenWaves);
         StartCoroutine(StartNextWave());
     }
 

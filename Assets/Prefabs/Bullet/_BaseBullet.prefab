@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 660308267573503520}
   - component: {fileID: 593658424530980702}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: _BaseBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &660308267573503520
 CircleCollider2D:
@@ -110,8 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f95a0e9e6647f04595f1bfb98cc81c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  speed: 15
-  lifetime: 2
 --- !u!1 &6840793634046170507
 GameObject:
   m_ObjectHideFlags: 0

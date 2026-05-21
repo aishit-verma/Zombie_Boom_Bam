@@ -5,7 +5,8 @@ public class ZombieTypeSO : ScriptableObject
 {
     [Header("Info")]
     public string zombieName;
-    public GameObject zombiePrefab;    // ← each type has its own prefab
+    public GameObject zombiePrefab;
+    public Sprite zombieSprite; 
 
     [Header("Stats")]
     public float health;
@@ -13,8 +14,15 @@ public class ZombieTypeSO : ScriptableObject
     public float contactDamage;
 
     [Header("Drops")]
-    public DropSO[] possibleDrops;
+    public DropEntry[] possibleDrops;
     public float dropChance;
-    public int creditDropAmount;    // override credits per zombie type
-    public float healthDropAmount;  // override health per zombie type
+    public int creditDropAmount;
+    public float healthDropAmount;
+}
+
+[System.Serializable]
+public class DropEntry
+{
+    public DropSO drop;
+    [Range(0f, 1f)] public float weight;
 }

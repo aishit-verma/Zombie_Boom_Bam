@@ -13,7 +13,6 @@ public class WeaponController : MonoBehaviour
     private float fireTimer = 0f;
 
     [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject bulletPrefab;
 
     [SerializeField] private WeaponSO startingWeapon;
 
@@ -93,7 +92,6 @@ public class WeaponController : MonoBehaviour
 
         for (int i = 0; i < weapon.bulletsPerShot; i++)
         {
-            // calculate spread
             float angle = Random.Range(
                 -weapon.spreadAngle / 2f,
                 weapon.spreadAngle / 2f);
@@ -102,7 +100,7 @@ public class WeaponController : MonoBehaviour
                 firePoint.rotation * Quaternion.Euler(0, 0, angle);
 
             GameObject bulletObj =
-                Instantiate(bulletPrefab, firePoint.position, spreadRotation);
+                Instantiate(weapon.bulletPrefab, firePoint.position, spreadRotation);
 
             Bullet bullet = bulletObj.GetComponent<Bullet>();
             bullet.Initialize(weapon.damage, weapon.bulletSpeed, weapon.bulletLifetime);
@@ -111,7 +109,6 @@ public class WeaponController : MonoBehaviour
         currentAmmo[activeSlot]--;
         UpdateAmmoUI();
 
-        // auto reload when empty
         if (currentAmmo[activeSlot] <= 0)
             StartReload();
     }
@@ -201,6 +198,20 @@ public class WeaponController : MonoBehaviour
         GameplayUI.Instance.UpdateAmmo(
             currentAmmo[activeSlot],
             equippedWeapons[activeSlot].magazineSize);
+    }
+    public int GetFirstEmptySlot()
+    {
+        for (int i = 0; i < equippedWeapons.Length; i++)
+        {
+            if (equippedWeapons[i] == null)
+                return i;
+        }
+        return -1; // all slots full
+    }
+    public WeaponSO GetWeaponInSlot(int slot)
+    {
+        if (slot < 0 || slot >= equippedWeapons.Length) return null;
+        return equippedWeapons[slot];
     }
 
     public WeaponSO GetActiveWeapon() => equippedWeapons[activeSlot];

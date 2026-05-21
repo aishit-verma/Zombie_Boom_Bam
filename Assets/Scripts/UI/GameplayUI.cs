@@ -28,6 +28,32 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private Color activeSlotColor = new Color(1f, 0.8f, 0f, 1f);
     [SerializeField] private Color emptyIconColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
+    [Header("Grenade Slot")]
+    [SerializeField] private Image grenadeSlotBackground;
+    [SerializeField] private Image grenadeIcon;
+    [SerializeField] private TextMeshProUGUI grenadeKeyText;
+
+    [Header("Grenade Count")]
+    [SerializeField] private TextMeshProUGUI grenadeCountText;
+
+    [Header("Grenade Slot Colors")]
+    [SerializeField]
+    private Color grenadeAvailableColor =
+        new Color(0.2f, 0.8f, 0.2f, 1f);
+    [SerializeField]
+    private Color grenadeEmptyColor =
+        new Color(0.5f, 0.5f, 0.5f, 1f);
+
+    public void UpdateGrenades(int current, int max)
+    {
+        if (grenadeCountText != null)
+            grenadeCountText.text = $"Grenades: {current}/{max}";
+
+        if (grenadeSlotBackground != null)
+            grenadeSlotBackground.color = current > 0 ?
+                grenadeAvailableColor : grenadeEmptyColor;
+    }
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -92,6 +118,15 @@ public class GameplayUI : MonoBehaviour
         }
 
         SetActiveSlot(0);
+
+        if (grenadeKeyText != null)
+            grenadeKeyText.text = "E";
+
+        if (grenadeSlotBackground != null)
+            grenadeSlotBackground.color = normalSlotColor;
+
+        if (grenadeCountText != null)
+            grenadeCountText.text = "Grenades: 0/0";
     }
 
     public void SetActiveSlot(int slotIndex)
@@ -113,16 +148,16 @@ public class GameplayUI : MonoBehaviour
     {
         if (slotIndex < 0 || slotIndex >= weaponIcons.Length) return;
 
-        
+
 
         if (weaponIcons[slotIndex] != null)
         {
-            
+
             weaponIcons[slotIndex].color = weaponColor;
             if (icon != null)
                 weaponIcons[slotIndex].sprite = icon;
         }
-        
+
     }
 
     public void ClearWeaponSlot(int slotIndex)

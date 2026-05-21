@@ -16,6 +16,7 @@ public class WeaponSO : ScriptableObject
     public float reloadTime;         // seconds to reload
 
     [Header("Bullet")]
+    public GameObject bulletPrefab;
     public int bulletsPerShot;       // 1 = pistol, 8 = shotgun spread
     public float spreadAngle;        // 0 = accurate, 30 = shotgun spread
 

@@ -14,11 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZombieTypeSO
   zombieName: Sprinter
   zombiePrefab: {fileID: 3475183095777699974, guid: bd81a107c6baffc4f98bfabf02229b53, type: 3}
-  health: 60
+  zombieSprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  health: 50
   moveSpeed: 4
   contactDamage: 8
   possibleDrops:
-  - {fileID: 11400000, guid: 5518de7ee5a13c246b2e532eab330066, type: 2}
-  dropChance: 0.5
-  creditDropAmount: 15
-  healthDropAmount: 0
+  - drop: {fileID: 11400000, guid: 5518de7ee5a13c246b2e532eab330066, type: 2}
+    weight: 0.5
+  - drop: {fileID: 11400000, guid: c61d1b4e4d4669c43ba688dc34facf4b, type: 2}
+    weight: 0.5
+  dropChance: 1
+  creditDropAmount: 20
+  healthDropAmount: 15

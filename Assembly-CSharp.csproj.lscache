@@ -54,6 +54,7 @@ Assets/Scripts/Managers/
  Drop.cs
  DropSpawner.cs
  EconomyManager.cs
+ ShopManager.cs
  WaveManager.cs
 Assets/Scripts/Player/
  Bullet.cs
@@ -63,14 +64,18 @@ Assets/Scripts/Player/
  WeaponController.cs
 Assets/Scripts/ScriptableObjects/
  DropSO.cs
+ ShopItemSO.cs
  WaveConfigSO.cs
  WeaponSO.cs
  ZombieTypeSO.cs
-Assets/Scripts/
- UI/GameplayUI.cs
- Zombie/
-  ZombieController.cs
-  ZombieSpawner.cs
+Assets/Scripts/UI/
+ GameplayUI.cs
+ ShopItemUI.cs
+ ShopUI.cs
+ SlotSelectionUI.cs
+Assets/Scripts/Zombie/
+ ZombieController.cs
+ ZombieSpawner.cs
 Temp/obj/Assembly-CSharp/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 
 [metadataReferences]

@@ -16,10 +16,11 @@ MonoBehaviour:
   weaponIcon: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   weaponColor: {r: 0, g: 0.8798338, b: 1, a: 1}
   fireRate: 0.4
-  damage: 20
+  damage: 50
   bulletSpeed: 15
   magazineSize: 7
   reloadTime: 1
+  bulletPrefab: {fileID: 1006142628008991509, guid: 658f53a3d3ff95340a1fcef69d7ceb66, type: 3}
   bulletsPerShot: 1
   spreadAngle: 0
   bulletLifetime: 2

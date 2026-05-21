@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
     private float speed;
     private float damage;
     private float lifetime;
+    private bool hasHit = false;
 
     public void Initialize(float damage, float speed, float lifetime)
     {
@@ -16,14 +17,16 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+        if (hasHit) return;
         transform.Translate(Vector2.up * speed * Time.deltaTime);
-    }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
+        // check for DOTS zombie at current position
+        bool hit = ZombieHitHandler.Instance
+            .DamageNearestZombie(transform.position, damage, 0.5f);
+
+        if (hit)
         {
-            other.GetComponent<ZombieController>()?.TakeDamage(damage);
+            hasHit = true;
             Destroy(gameObject);
         }
     }

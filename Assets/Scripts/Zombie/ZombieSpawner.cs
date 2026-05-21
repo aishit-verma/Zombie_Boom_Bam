@@ -29,15 +29,11 @@ public class ZombieSpawner : MonoBehaviour
             Transform spawnPoint =
                 spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-            ZombieTypeSO zombieType =
-                wave.zombieTypes[Random.Range(0, wave.zombieTypes.Length)];
+            int typeIndex = Random.Range(0, wave.zombieTypes.Length);
+            ZombieTypeSO zombieType = wave.zombieTypes[typeIndex];
 
-            // prefab comes from ZombieTypeSO directly
-            GameObject zombie =
-                Instantiate(zombieType.zombiePrefab, spawnPoint.position,
-                Quaternion.identity);
-
-            zombie.GetComponent<ZombieController>().Initialize(zombieType);
+            ZombieDotsSpawner.Instance.SpawnZombie(
+                zombieType, spawnPoint.position, typeIndex);
 
             yield return new WaitForSeconds(wave.spawnInterval);
         }

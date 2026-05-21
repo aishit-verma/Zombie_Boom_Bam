@@ -14,12 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZombieTypeSO
   zombieName: Tank
   zombiePrefab: {fileID: 7125084062918463575, guid: 0301ed99900b6e5458f63710edab6bdb, type: 3}
+  zombieSprite: {fileID: 1826323168, guid: 30520a8dd82aba64ca8aeb6bc21db08e, type: 3}
   health: 300
   moveSpeed: 1
   contactDamage: 25
   possibleDrops:
-  - {fileID: 11400000, guid: 5518de7ee5a13c246b2e532eab330066, type: 2}
-  - {fileID: 11400000, guid: c61d1b4e4d4669c43ba688dc34facf4b, type: 2}
+  - drop: {fileID: 11400000, guid: 5518de7ee5a13c246b2e532eab330066, type: 2}
+    weight: 0.6
+  - drop: {fileID: 11400000, guid: c61d1b4e4d4669c43ba688dc34facf4b, type: 2}
+    weight: 0.4
   dropChance: 1
-  creditDropAmount: 30
-  healthDropAmount: 25
+  creditDropAmount: 60
+  healthDropAmount: 40

@@ -30,3 +30,4 @@ MonoBehaviour:
   shakeIntensity: 0.4
   shakeDuration: 0.3
   shakePattern: 2
+  shootSound: {fileID: 8300000, guid: 6349a640dc07c3b4389c205f5b5a5145, type: 3}

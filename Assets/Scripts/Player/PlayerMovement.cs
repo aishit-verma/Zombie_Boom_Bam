@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 MoveInput { get; private set; }
     public bool IsMovementEnabled { get; set; } = true;
+    private Vector2 recoilVelocity = Vector2.zero;
+
+    [SerializeField] private float recoilRecoverySpeed = 10f;
 
     void Awake()
     {
@@ -41,9 +44,20 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
+    public void ApplyRecoil(Vector2 recoil)
+    {
+        recoilVelocity = recoil;
+    }
+
     void FixedUpdate()
     {
         if (!IsMovementEnabled) return;
-        rb.linearVelocity = MoveInput * moveSpeed;
+
+        // recover from recoil
+        recoilVelocity = Vector2.Lerp(
+            recoilVelocity, Vector2.zero,
+            recoilRecoverySpeed * Time.fixedDeltaTime);
+
+        rb.linearVelocity = MoveInput * moveSpeed + recoilVelocity;
     }
 }

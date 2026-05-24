@@ -88,7 +88,7 @@ public class ShopManager : MonoBehaviour
                 break;
 
             case ShopItemType.Ammo:
-                Debug.Log($"Ammo refilled: +{item.ammoAmount}");
+                
                 break;
             case ShopItemType.Grenade:
                 GrenadeController.Instance.AddGrenades(item.grenadeAmount);
@@ -97,7 +97,7 @@ public class ShopManager : MonoBehaviour
 
         }
 
-        Debug.Log($"Purchased: {item.itemName}");
+        
         return true;
     }
 }

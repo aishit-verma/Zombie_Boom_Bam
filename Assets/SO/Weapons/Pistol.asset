@@ -16,7 +16,7 @@ MonoBehaviour:
   weaponIcon: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   weaponColor: {r: 0, g: 0.8798338, b: 1, a: 1}
   fireRate: 0.4
-  damage: 50
+  damage: 20
   bulletSpeed: 15
   magazineSize: 7
   reloadTime: 1
@@ -25,3 +25,8 @@ MonoBehaviour:
   spreadAngle: 0
   bulletLifetime: 2
   cost: 150
+  recoilForce: 3
+  recoilRecoverySpeed: 0.5
+  shakeIntensity: 0.1
+  shakeDuration: 0.2
+  shakePattern: 0

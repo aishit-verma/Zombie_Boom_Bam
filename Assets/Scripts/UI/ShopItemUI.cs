@@ -39,6 +39,7 @@ public class ShopItemUI : MonoBehaviour
     public void OnBuyClicked()
     {
         if (currentItem == null) return;
+        AudioManager.Instance.PlayButtonClick();
 
         bool success = ShopManager.Instance.PurchaseItem(
             currentItem, weaponSlotIndex);

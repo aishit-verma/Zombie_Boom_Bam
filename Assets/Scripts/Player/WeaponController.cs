@@ -83,6 +83,7 @@ public class WeaponController : MonoBehaviour
 
             Shoot();
             fireTimer = equippedWeapons[activeSlot].fireRate;
+            CameraShake.Instance.Shake(0.1f);
         }
     }
 
@@ -100,17 +101,33 @@ public class WeaponController : MonoBehaviour
                 firePoint.rotation * Quaternion.Euler(0, 0, angle);
 
             GameObject bulletObj =
-                Instantiate(weapon.bulletPrefab, firePoint.position, spreadRotation);
+                Instantiate(weapon.bulletPrefab,
+                    firePoint.position, spreadRotation);
 
             Bullet bullet = bulletObj.GetComponent<Bullet>();
-            bullet.Initialize(weapon.damage, weapon.bulletSpeed, weapon.bulletLifetime);
+            bullet.Initialize(weapon.damage, weapon.bulletSpeed,
+                weapon.bulletLifetime);
         }
+
+        // camera shake
+        CameraShake.Instance?.Shake(
+            weapon.shakeIntensity,
+            weapon.shakeDuration,
+            weapon.shakePattern);
+
+        // recoil — push player back
+        Vector2 recoilDirection =
+            -firePoint.up * weapon.recoilForce;
+        PlayerMovement.Instance.ApplyRecoil(recoilDirection);
 
         currentAmmo[activeSlot]--;
         UpdateAmmoUI();
 
         if (currentAmmo[activeSlot] <= 0)
             StartReload();
+
+        // play sound
+        AudioManager.Instance?.PlayWeaponSound(weapon);
     }
 
     // ── Reload ──────────────────────────────────────
@@ -129,6 +146,8 @@ public class WeaponController : MonoBehaviour
 
         if (reloadTimer <= 0f)
             FinishReload();
+
+            
     }
 
     private void StartReload()
@@ -141,11 +160,13 @@ public class WeaponController : MonoBehaviour
         isReloading = true;
         reloadTimer = equippedWeapons[activeSlot].reloadTime;
 
+        AudioManager.Instance?.PlayReload();
+
         // show reloading in ammo text
         GameplayUI.Instance.UpdateAmmo(-1,
             equippedWeapons[activeSlot].magazineSize);
 
-        Debug.Log("Reloading...");
+        
     }
 
     private void FinishReload()
@@ -155,7 +176,7 @@ public class WeaponController : MonoBehaviour
             equippedWeapons[activeSlot].magazineSize;
 
         UpdateAmmoUI();
-        Debug.Log("Reload complete!");
+        
     }
 
     // ── Equip ───────────────────────────────────────
@@ -172,7 +193,7 @@ public class WeaponController : MonoBehaviour
         if (slot == activeSlot)
             UpdateAmmoUI();
 
-        Debug.Log($"{weapon.weaponName} equipped in slot {slot + 1}");
+        
         return true;
     }
 

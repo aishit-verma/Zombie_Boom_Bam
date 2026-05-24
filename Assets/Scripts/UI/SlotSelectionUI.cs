@@ -51,6 +51,7 @@ public class SlotSelectionUI : MonoBehaviour
     private void SelectSlot(int slot)
     {
         if (pendingWeapon == null) return;
+        AudioManager.Instance.PlayButtonClick();
         WeaponController.Instance.EquipWeapon(pendingWeapon, slot);
         Hide();
     }

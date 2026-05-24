@@ -32,12 +32,19 @@ public struct ZombieVisual : IComponentData
     public bool needsUpdate;
 }
 
+public struct ZombieSteering : IComponentData
+{
+    public float3 currentDirection;
+    public float steeringSpeed;
+}
+
 // ── Authoring ────────────────────────────────────────
 public class ZombieAuthoring : MonoBehaviour
 {
     public float moveSpeed = 2f;
     public float maxHealth = 100f;
     public float damagePerSecond = 10f;
+    public float steeringSpeed = 5f;
 
     public class Baker : Baker<ZombieAuthoring>
     {
@@ -72,6 +79,12 @@ public class ZombieAuthoring : MonoBehaviour
             {
                 spriteIndex = 0,
                 needsUpdate = false
+            });
+
+            AddComponent(entity, new ZombieSteering
+            {
+                currentDirection = float3.zero,
+                steeringSpeed = authoring.steeringSpeed
             });
         }
     }

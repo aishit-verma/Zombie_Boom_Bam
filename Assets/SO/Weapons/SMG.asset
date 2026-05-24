@@ -25,3 +25,8 @@ MonoBehaviour:
   spreadAngle: 5
   bulletLifetime: 2
   cost: 0
+  recoilForce: 2
+  recoilRecoverySpeed: 0.5
+  shakeIntensity: 0.1
+  shakeDuration: 0.05
+  shakePattern: 1

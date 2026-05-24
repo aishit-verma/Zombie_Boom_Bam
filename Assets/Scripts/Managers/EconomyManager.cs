@@ -36,26 +36,26 @@ public class EconomyManager : MonoBehaviour
         // Get current wave config reward
         int bonus = WaveManager.Instance.GetCurrentWaveReward();
         AddCredits(bonus);
-        Debug.Log($"Wave bonus! +{bonus} credits");
+        
     }
 
     public void AddCredits(int amount)
     {
         currentCredits += amount;
         OnCreditsChanged?.Invoke(currentCredits);
-        Debug.Log($"Credits: {currentCredits}");
+        
     }
 
     public bool SpendCredits(int amount)
     {
         if (currentCredits < amount)
         {
-            Debug.Log("Not enough credits!");
+            
             return false;
         }
         currentCredits -= amount;
         OnCreditsChanged?.Invoke(currentCredits);
-        Debug.Log($"Spent {amount}. Credits remaining: {currentCredits}");
+        
         return true;
     }
 

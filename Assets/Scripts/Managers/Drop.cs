@@ -13,7 +13,7 @@ public class Drop : MonoBehaviour
     private Transform player;
     private bool isAttracting = false;
 
-    public void Initialize(DropSO data, int creditOverride, 
+    public void Initialize(DropSO data, int creditOverride,
         float healthOverride)
     {
         dropData = data;
@@ -36,7 +36,7 @@ public class Drop : MonoBehaviour
         if (isAttracting)
         {
             // move toward player with increasing speed
-            float speed = attractSpeed * 
+            float speed = attractSpeed *
                 (1 + (attractRadius - distance) / attractRadius);
 
             transform.position = Vector2.MoveTowards(
@@ -56,9 +56,11 @@ public class Drop : MonoBehaviour
         {
             case DropType.Credits:
                 EconomyManager.Instance.AddCredits(creditAmount);
+                AudioManager.Instance?.PlayCreditPickup();
                 break;
             case DropType.HealthPack:
                 PlayerHealth.Instance.Heal(healthAmount);
+                AudioManager.Instance?.PlayHealthPickup();
                 break;
         }
         Destroy(gameObject);

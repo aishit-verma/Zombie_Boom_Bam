@@ -38,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         GameplayUI.Instance.UpdateHealth(GetHealthPercent());
-        Debug.Log($"Healed! HP: {currentHealth}");
+   
     }
 
     public void TakeDamage(float damage)
@@ -50,6 +50,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        AudioManager.Instance?.PlayGameOverMusic();
         PlayerMovement.Instance.IsMovementEnabled = false;
         WeaponController.Instance.enabled = false;
         // GameOverUI.Instance.Show();

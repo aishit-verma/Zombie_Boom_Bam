@@ -24,11 +24,10 @@ public class ZombieHitHandler : MonoBehaviour
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         zombieQuery = entityManager.CreateEntityQuery(
-        ComponentType.ReadWrite<Health>(),
-        ComponentType.ReadOnly<LocalTransform>(),
-        ComponentType.ReadOnly<Zombie>(),
-        ComponentType.ReadOnly<ZombieTypeIndex>());
-
+            ComponentType.ReadWrite<Health>(),
+            ComponentType.ReadOnly<LocalTransform>(),
+            ComponentType.ReadOnly<Zombie>(),
+            ComponentType.ReadOnly<ZombieTypeIndex>());
     }
 
     public bool DamageNearestZombie(Vector3 hitPosition, float damage, float radius = 0.5f)
@@ -65,18 +64,31 @@ public class ZombieHitHandler : MonoBehaviour
         health.currentHealth -= damage;
         entityManager.SetComponentData(closestEntity, health);
 
-        Debug.Log($"Zombie hit! Health remaining: {health.currentHealth}");
+        // hit flash effect
+        if (entityManager.HasComponent<SpriteRenderer>(closestEntity))
+        {
+            SpriteRenderer sr = entityManager
+                .GetComponentObject<SpriteRenderer>(closestEntity);
+            sr.GetComponent<ZombieHitFlash>()?.Flash();
+        }
 
         if (health.currentHealth <= 0)
         {
+            AudioManager.Instance?.PlayZombieDeath();
             ZombieTypeIndex typeIndex = entityManager
                 .GetComponentData<ZombieTypeIndex>(closestEntity);
+
+            Vector3 deathPos = new Vector3(hitPos.x, hitPos.y, 0f);
+
+            // death effect
+            DeathEffect.Instance?.PlayDeathEffect(
+                deathPos, typeIndex.index);
 
             entityManager.DestroyEntity(closestEntity);
             WaveManager.Instance.OnZombieDied();
 
-            Vector3 dropPos = new Vector3(hitPos.x, hitPos.y, 0f);
-            ZombieDropBridge.Instance.TrySpawnDrop(dropPos, typeIndex.index);
+            ZombieDropBridge.Instance.TrySpawnDrop(
+                deathPos, typeIndex.index);
         }
 
         return true;

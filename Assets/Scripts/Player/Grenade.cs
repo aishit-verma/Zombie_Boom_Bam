@@ -61,6 +61,8 @@ public class Grenade : MonoBehaviour
 
     private void Explode()
     {
+        AudioManager.Instance?.PlayGrenadeExplosion();
+        
         // find all zombies in radius
         Collider2D[] hits = Physics2D.OverlapCircleAll(
             transform.position,
@@ -84,6 +86,7 @@ public class Grenade : MonoBehaviour
                         ForceMode2D.Impulse);
                 }
             }
+            CameraShake.Instance.Shake(0.5f);
         }
 
         // spawn explosion effect later

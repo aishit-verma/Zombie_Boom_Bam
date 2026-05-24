@@ -52,7 +52,7 @@ public class GrenadeController : MonoBehaviour
 
         currentCount--;
         UpdateUI();
-        Debug.Log($"Grenade thrown! Remaining: {currentCount}");
+     
     }
 
     public void AddGrenades(int amount)

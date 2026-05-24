@@ -10,8 +10,8 @@ public class WeaponSO : ScriptableObject
 
     [Header("Firing")]
     public float fireRate;           // shots per second
-    public float damage;             
-    public float bulletSpeed;        
+    public float damage;
+    public float bulletSpeed;
     public int magazineSize;         // bullets before reload
     public float reloadTime;         // seconds to reload
 
@@ -25,4 +25,23 @@ public class WeaponSO : ScriptableObject
 
     [Header("Shop")]
     public int cost;                 // credits to buy from shop
+
+    [Header("Recoil")]
+    public float recoilForce;           // pushes player back on shoot
+    public float recoilRecoverySpeed;   // how fast player returns to position
+
+    [Header("Camera Shake")]
+    public float shakeIntensity;        // how strong the shake is
+    public float shakeDuration;         // how long it lasts
+    public CameraShakePattern shakePattern; // what pattern
+
+    [Header("Audio")]
+    public AudioClip shootSound;    // ← add this
+}
+
+public enum CameraShakePattern
+{
+    Single,      // one quick shake — pistol
+    Burst,       // multiple small shakes — SMG
+    Heavy,       // one big shake — shotgun, sniper
 }

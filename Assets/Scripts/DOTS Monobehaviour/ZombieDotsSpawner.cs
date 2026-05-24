@@ -89,5 +89,10 @@ public class ZombieDotsSpawner : MonoBehaviour
         {
             index = typeIndex
         });
+        entityManager.SetComponentData(zombie, new ZombieSteering
+        {
+            currentDirection = float3.zero,
+            steeringSpeed = type.moveSpeed * 4f
+        });
     }
 }

@@ -46,14 +46,14 @@ public class WaveManager : MonoBehaviour
 
         if (currentWaveIndex >= waves.Length)
         {
-            Debug.Log("All waves complete!");
+           
             yield break;
         }
 
         WaveConfigSO wave = waves[currentWaveIndex];
         zombiesAlive = wave.zombieCount;
 
-        Debug.Log($"Wave {currentWaveIndex + 1} starting!");
+   
         OnWaveStart?.Invoke();
 
         ZombieSpawner.Instance.SpawnWave(wave);
@@ -63,7 +63,7 @@ public class WaveManager : MonoBehaviour
     public void OnZombieDied()
     {
         zombiesAlive--;
-        Debug.Log($"Zombies remaining: {zombiesAlive}");
+        
 
         if (zombiesAlive <= 0)
             StartCoroutine(EndWave());
